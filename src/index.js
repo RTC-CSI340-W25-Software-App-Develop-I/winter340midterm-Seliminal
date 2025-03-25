@@ -25,5 +25,49 @@ const reviews = [
 /////////////////////////////////////////////////////////////////////
 
 //1. Append the reviews to the DOM
+function renderReviews() {
+  const reviewsContainer = document.querySelector(".reviews");
+  console.log(reviewsContainer);
+
+  reviewsContainer.innerHTML = "";
+
+  reviews.forEach((review) => {
+    const reviewHTML = `
+      <div class="review_container">
+        <img src="${review.image}" alt="${review.username}'s profile picture"/>
+        <div>
+          <p><strong>${review.username}</strong></p>
+          <p>${review.star} stars</p>
+          <p>${review.review}</p>
+        </div>
+      </div>
+    `;
+
+    console.log(reviewHTML);
+
+    reviewsContainer.insertAdjacentHTML("beforeend", reviewHTML);
+  });
+}
+renderReviews();
 
 //2. Append new reviews to the DOM from the form
+const reviewForm = document.querySelector("form");
+
+reviewForm.addEventListener("submit", handleFormSubmit);
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const image = document.getElementById("image").value;
+  const star = parseInt(document.querySelector("#star").value);
+  const review = document.getElementById("review").value;
+     console.log(username, image, star, review);
+
+  const newReview = { username, image, star, review };
+  reviews.push(newReview);
+
+  renderReviews();
+
+  reviewForm.reset();
+}

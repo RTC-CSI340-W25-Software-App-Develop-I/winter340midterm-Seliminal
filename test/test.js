@@ -2,7 +2,7 @@ import { assert } from "chai";
 
 import { calculateStarAverage } from "../src/logic.js";
 
-const mockReviews = [
+const reviews = [
   {
     username: "Rose",
     image: "./images/rose.png",
@@ -23,3 +23,11 @@ const mockReviews = [
       "The coffee was great but the employees didn't let me stay past closing! ): Worst experience ever.",
   },
 ];
+const average = calculateStarAverage(reviews);
+    assert.strictEqual(average, 3); 
+
+    it("should return NaN for empty review arrays", function() {
+      const emptyReviews = [];
+      const average = calculateStarAverage(emptyReviews);
+      assert.isNaN(average);
+    });
